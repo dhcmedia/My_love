@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check to see how much I love you 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: background 0.5s ease;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .error-code {
+            font-size: 6em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .message-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-box h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .message-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .message-box li {
+            color: #2d3436;
+            padding: 8px 0;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        .message-box li:before {
+            content: "💕 ";
+            margin-right: 8px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+            color: white;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .no-btn.jumping {
+            position: fixed;
+        }
+
+        .button-container {
+            margin-top: 30px;
+            transition: opacity 0.5s ease;
+        }
+
+        .button-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: fixed;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden-element {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .error-code {
+                font-size: 4em;
+            }
+            
+            button {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 404 Screen -->
+        <div id="screen404" class="screen active">
+            <div class="error-code">404</div>
+            <h1>Check to see how much I love you</h1>
+            <p>Click the button below to find out! 💝</p>
+            <button class="refresh-btn" onclick="showValentineScreen()">🔄 Check Now</button>
+        </div>
+
+        <!-- Valentine Screen -->
+        <div id="valentineScreen" class="screen">
+            <h1>🅰️DED♡YIN 🥳</h1>
+            <p style="font-size: 1.5em; color: #e74c3c;">Will you be my Valentine<span id="emoji">💔</span></p>
+            
+            <div id="messageBox" class="message-box hidden-element">
+                <h3>By clicking YES you agree to:</h3>
+                <ul>
+                    <li>A countdown love notes I can open leading up to when we see each other</li>
+                    <li>A Playlist of songs that remind me of you</li>
+                    <li>A handwritten expressing your feelings for me</li>
+                    <li>A surprise compilation of video made for me only</li>
+                    <li>And maybe reassurance about our relationship</li>
+                </ul>
+                <p style="text-align: center; margin-top: 20px; font-size: 1.1em; font-weight: bold;">Effective immediately! 🚀</p>
+                <p style="text-align: center; margin-top: 15px; font-size: 1.05em; color: #d63031;">You have until 02:00pm or 14:00 to get everything ready😘</p>
+                <p style="text-align: center; margin-top: 15px; font-size: 1.2em; font-weight: bold; color: #e74c3c;">I ❤️ you Babe🫂</p>
+            </div>
+
+            <div id="buttonContainer" class="button-container">
+                <button class="yes-btn" onclick="handleYes()">YES 💚</button>
+                <button id="noBtn" class="no-btn" onclick="handleNo()">NO ❌</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const gradients = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+            'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+        ];
+
+        function showValentineScreen() {
+            document.getElementById('screen404').classList.remove('active');
+            document.getElementById('valentineScreen').classList.add('active');
+        }
+
+        function handleYes() {
+            // Show the message
+            document.getElementById('messageBox').classList.remove('hidden-element');
+            
+            // Hide buttons after 1 second
+            setTimeout(() => {
+                document.getElementById('buttonContainer').classList.add('hidden');
+            }, 1000);
+
+            // Trigger confetti
+            createConfetti();
+        }
+
+        function handleNo() {
+            noClickCount++;
+            const noBtn = document.getElementById('noBtn');
+            
+            // Change emoji after 2 clicks
+            if (noClickCount === 2) {
+                document.getElementById('emoji').textContent = '😭';
+            }
+
+            // Change background color
+            const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+            document.body.style.background = randomGradient;
+
+            // Make button jump
+            noBtn.classList.add('jumping');
+            const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff69b4'];
+            const confettiCount = 100;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+</html>
